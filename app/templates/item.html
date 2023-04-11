@@ -1,0 +1,69 @@
+{% extends "layout.html"%}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <!-- article contents -->
+        <div class="col-lg-8 col-md-12">
+            {% block item %} {% endblock item %}
+            <!--  previous and next item -->
+            <div class="row justify-content-md-center">
+                <div class="col-4">
+                    {% if previous_item %}
+                    <a
+                        href="{{url_for('items.item', item_slug=previous_item.slug, offer=previous_item.offer_name.title)}}">
+                        <button class="btn btn-warning" type="button" data-bs-toggle="tooltip" data-bs-placement="top"
+                            title="{{previous_item.title}}">
+                            &lt&lt&lt Previous Item
+                        </button>
+                    </a>
+                    {% endif %}
+                </div>
+                <div class="col-4">
+                    {% if next_item %}
+                    <a href="{{url_for('items.item', item_slug=next_item.slug, offer=next_item.offer_name.title)}}">
+                        <button class="btn btn-warning" type="button" data-bs-toggle="tooltip" data-bs-placement="top"
+                            title="{{next_item.title}}">
+                            &gt&gt&gt Next Item
+                        </button>
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <!-- sidebar -->
+        <div class="col-4">
+            <!-- author -->
+            <div class="my-5">
+                <span><img class="article-img"
+                        src="{{url_for('static',filename='user_pics/'+item.author.image_file)}}" alt="">By:
+                    <a href="#" class="link">{{item.author.username}}</a>
+                    <span class="text-muted">On: {{item.date_posted.strftime('%Y-%m-%d')}}</span>
+                </span>
+            </div>
+            <!-- offer icon -->
+            <img src="{{url_for('static', filename='offer_icons/'+item.offer_name.icon)}}" alt="">
+            <br>
+            <!-- list of items in this offer -->
+            <ul class="list-group" style="display:inline-block">
+                {% for lsn in item.offer_name.items %}
+                {% if lsn.title == item.title %}
+                <li class="list-group-item border active" aria-current="true">
+                    <a class="link text-light"
+                        href="{{url_for('items.item', item_slug=lsn.slug, offer=lsn.offer_name.title)}}">{{lsn.title}}</a>
+                </li>
+                {% else %}
+                <li class="list-group-item border" aria-current="false">
+                    <a class="link text-dark"
+                        href="{{url_for('items.item', item_slug=lsn.slug, offer=lsn.offer_name.title)}}">{{lsn.title}}</a>
+                </li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+
+        </div>
+    </div>
+    <br>
+
+</div>
+
+{% endblock content%}

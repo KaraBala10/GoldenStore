@@ -1,0 +1,10 @@
+{% extends "item.html" %}
+{% block item %}
+<div class="container pt-5">
+    <br>
+    <h2>{{item.title}}</h2>
+    <hr>
+    {{item.content | safe}}
+</div>
+
+{% endblock item %}

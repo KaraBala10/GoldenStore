@@ -1,0 +1,163 @@
+{% extends "dashboard.html"%}
+{% block new_item %}
+
+<div class="{{'tab-pane show active fade p-3' if active_tab=='new_item' else 'tab-pane fade p-3'}}" id="nav-newitem"
+    role="tabpanel" aria-labelledby="nav-newitem-tab">
+    <form action="/dashboard/new_item" method="POST" enctype="multipart/form-data">
+        {{ new_item_form.hidden_tag()}}
+        <legend class="border-bottom my-3">New item</legend>
+        <div class="mb-3">
+            {{ new_item_form.offer.label(class='form-control-label')}}
+            {% if new_item_form.offer.errors %}
+            {{ new_item_form.offer(class='form-contro is-invalid')}}
+            <div class="invalid-feedback">
+                {% for error in new_item_form.offer.errors %}
+                <span>{{ error }} </span>
+                {% endfor %}
+            </div>
+            {% else %}
+            {{ new_item_form.offer(class='form-select')}}
+            {% endif %}
+            <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#newOffer">
+                New Offer?
+            </button>
+        </div>
+        <div class="mb-3">
+            {{ new_item_form.title.label(class='form-control-label')}}
+            {% if new_item_form.title.errors %}
+            {{ new_item_form.title(class='form-control is-invalid')}}
+            <div class="invalid-feedback">
+                {% for error in new_item_form.title.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% else %}
+            {{ new_item_form.title(class='form-control')}}
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            {{ new_item_form.slug.label(class='form-control-label')}}
+            {% if new_item_form.slug.errors %}
+            {{ new_item_form.slug(class='form-control is-invalid')}}
+            <div class="invalid-feedback">
+                {% for error in new_item_form.slug.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% else %}
+            {{ new_item_form.slug(class='form-control')}}
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            {{ new_item_form.content.label(class='form-control-label')}}
+            {% if new_item_form.content.errors %}
+            {{ new_item_form.content(class='form-control is-invalid')}}
+            <div class="invalid-feedback">
+                {% for error in new_item_form.content.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% else %}
+            {{ new_item_form.content(class='form-control')}}
+            {% endif %}
+        </div>
+        <div class="mb-3">
+            {{ new_item_form.thumbnail.label(class='form-control-label')}}
+            {% if new_item_form.thumbnail.errors %}
+            {{ new_item_form.thumbnail(class='form-control is-invalid')}}
+            <div class="invalid-feedback">
+                {% for error in new_item_form.thumbnail.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+            {% else %}
+            {{ new_item_form.thumbnail(class='form-control')}}
+            {% endif %}
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-12">
+                <button class="btn btn-success" type="submit">Post</button>
+            </div>
+        </div>
+    </form>
+    {{ ckeditor.load(custom_url = url_for('static', filename = 'ckeditor/ckeditor.js')) }}
+    {{ ckeditor.config(name='content')}}
+    <!-- Modal Contetn here -->
+    <div class="modal fade" id="newOffer" tabindex="-1" aria-labelledby="newOfferModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="newOfferModal">Create New Offer</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {{ modal_messages() }}
+                    <form action="/dashboard/new_item" method="POST" enctype="multipart/form-data">
+                        {{ new_offer_form.hidden_tag() }}
+                        <div class="mb-3">
+                            {{ new_offer_form.title.label(class='form-control-label')}}
+                            {% if new_offer_form.title.errors %}
+                            {{ new_offer_form.title(class='form-control is-invalid')}}
+                            <div class="invalid-feedback">
+                                {% for error in new_offer_form.title.errors %}
+                                <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                            {% else %}
+                            {{ new_offer_form.title(class='form-control')}}
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                            {{ new_offer_form.description.label(class='form-control-label')}}
+                            {% if new_offer_form.description.errors %}
+                            {{ new_offer_form.description(class='form-control is-invalid')}}
+                            <div class="invalid-feedback">
+                                {% for error in new_offer_form.description.errors %}
+                                <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                            {% else %}
+                            {{ new_offer_form.description(class='form-control')}}
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                            {{ new_offer_form.price.label(class='form-control-label')}}
+                            {% if new_offer_form.price.errors %}
+                            {{ new_offer_form.price(class='form-control is-invalid')}}
+                            <div class="invalid-feedback">
+                                {% for error in new_offer_form.price.errors %}
+                                <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                            {% else %}
+                            {{ new_offer_form.price(class='form-control')}}
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                            {{ new_offer_form.icon.label(class='form-control-label')}}
+                            {% if new_offer_form.icon.errors %}
+                            {{ new_offer_form.icon(class='form-control is-invalid')}}
+                            <div class="invalid-feedback">
+                                {% for error in new_offer_form.icon.errors %}
+                                <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                            {% else %}
+                            {{ new_offer_form.icon(class='form-control')}}
+                            {% endif %}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            {{new_offer_form.submit(class='btn btn-primary')}}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock new_item %}

@@ -1,0 +1,36 @@
+{%extends "layout.html"%}
+{% block content%}
+<!-- Tabs -->
+<div class="container my-5">
+    <nav>
+        <div class="nav nav-tabs" id="tablist">
+            <a class="link" href="/dashboard/profile">
+                <button class="{{'nav-link active' if active_tab=='profile' else 'nav-link'}}" id="nav-profile-tab"
+                    data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab"
+                    aria-controls="nav-profile" aria-selected="true">Profile</button>
+            </a>
+
+            <a class="link" href="/dashboard/new_item">
+                <button class="{{'nav-link active' if active_tab=='new_item' else 'nav-link'}}" id="nav-newitem-tab"
+                    data-bs-toggle="tab" data-bs-target="#nav-newitem" type="button" role="tab"
+                    aria-controls="nav-newitem" aria-selected="true">New Item</button>
+            </a>
+
+            <a class="link" href="/dashboard/user_items">
+                <button class="{{'nav-link active' if active_tab=='user_items' else 'nav-link'}}"
+                    id="nav-user_items-tab" data-bs-toggle="tab" data-bs-target="#nav-items" type="button"
+                    role="tab" aria-controls="nav-items" aria-selected="true">Your Items</button>
+            </a>
+        </div>
+    </nav>
+    <!-- Tab contents here -->
+    <div class="tab-content" id="nav-tabContent">
+        <!-- profile -->
+        {% block profile %} {% endblock profile%}
+        <!-- New item -->
+        {% block new_item %} {% endblock new_item %}
+        <!-- User items -->
+        {% block user_items %} {% endblock user_items %}
+    </div>
+</div>
+{% endblock content %}
